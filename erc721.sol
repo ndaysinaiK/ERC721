@@ -10,7 +10,7 @@ import "@openzeppelin/contracts-upgradeable/token/ERC721/extensions/ERC721Burnab
 import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 import "@openzeppelin/contracts-upgradeable/utils/CountersUpgradeable.sol";
 
-contract MyToken is Initializable, ERC721Upgradeable, ERC721EnumerableUpgradeable, ERC721URIStorageUpgradeable, PausableUpgradeable, OwnableUpgradeable, ERC721BurnableUpgradeable {
+contract ERC721Token is Initializable, ERC721Upgradeable, ERC721EnumerableUpgradeable, ERC721URIStorageUpgradeable, PausableUpgradeable, OwnableUpgradeable, ERC721BurnableUpgradeable {
     using CountersUpgradeable for CountersUpgradeable.Counter;
 
     CountersUpgradeable.Counter private _tokenIdCounter;
@@ -19,12 +19,16 @@ contract MyToken is Initializable, ERC721Upgradeable, ERC721EnumerableUpgradeabl
     constructor() initializer {}
 
     function initialize() initializer public {
-        __ERC721_init("My ERC 721 Token", "SNK");
+        __ERC721_init("ERC 721 Token", "SNL");
         __ERC721Enumerable_init();
         __ERC721URIStorage_init();
         __Pausable_init();
         __Ownable_init();
         __ERC721Burnable_init();
+    }
+
+    function _baseURI() internal pure override returns (string memory) {
+        return "https://your_base_url/";
     }
 
     function pause() public onlyOwner {
